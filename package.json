@@ -1,0 +1,77 @@
+{
+  "name": "xuexitong-course-downloader",
+  "version": "0.4.5",
+  "description": "学习通课程文件批量下载：原文件优先、课件预览转 PDF、按章节 ZIP 打包，支持最小化、停止和失败重试。",
+  "scripts": {
+    "build": "tsup --config tsup.tampermonkey.config.ts && tsup --config tsup.extension.config.ts",
+    "build:tamper": "tsup --config tsup.tampermonkey.config.ts",
+    "build:ext": "tsup --config tsup.extension.config.ts",
+    "lint": "eslint src",
+    "format": "prettier --write src",
+    "test": "tsx --test tests/*.test.ts",
+    "typecheck": "tsc --noEmit",
+    "publish:files": "node scripts/prepare-downloads.mjs"
+  },
+  "keywords": [
+    "Downloader",
+    "学习通"
+  ],
+  "author": "Trahex (course batch edition); Hazuki Keatsu (original project)",
+  "license": "MIT",
+  "packageManager": "pnpm@10.27.0",
+  "devDependencies": {
+    "@types/archiver": "^7.0.0",
+    "@types/jsdom": "^30.0.0",
+    "@types/node": "^25.0.3",
+    "@types/tampermonkey": "^5.0.5",
+    "@typescript-eslint/eslint-plugin": "^8.51.0",
+    "@typescript-eslint/parser": "^8.51.0",
+    "archiver": "^7.0.1",
+    "eslint": "^9.39.2",
+    "jsdom": "^30.1.2",
+    "prettier": "^3.7.4",
+    "tsup": "^8.5.1",
+    "tsx": "^4.23.15",
+    "typescript": "^5.9.3"
+  },
+  "tampermonkey": {
+    "namespace": "local:xuexitong-course-batch",
+    "match": [
+      "https://*.chaoxing.com/*",
+      "https://*.cldisk.com/*",
+      "https://mooc1.shu.edu.cn/*",
+      "https://mooc2-ans.shu.edu.cn/*"
+    ],
+    "grant": [
+      "GM_getValue",
+      "GM_setValue",
+      "GM_xmlhttpRequest"
+    ],
+    "runAt": "document-end",
+    "homepageURL": "https://github.com/Trahex/xuexitong-course-downloader",
+    "connect": [
+      "chaoxing.com",
+      "cldisk.com",
+      "mooc1.shu.edu.cn",
+      "mooc2-ans.shu.edu.cn"
+    ]
+  },
+  "extension": {
+    "icon": "icon.png"
+  },
+  "dependencies": {
+    "fflate": "^0.8.3",
+    "i18next": "^25.7.4",
+    "i18next-browser-languagedetector": "^8.2.0",
+    "jspdf": "^3.0.4",
+    "react-i18next": "^16.5.3"
+  },
+  "homepage": "https://github.com/Trahex/xuexitong-course-downloader",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Trahex/xuexitong-course-downloader.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Trahex/xuexitong-course-downloader/issues"
+  }
+}
